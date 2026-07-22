@@ -95,18 +95,19 @@
   /* ---- La ligne (signature : les 11 rayons = 11 arrêts) ---- */
   .ligne-intro{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px}
   .ligne-intro .count{font-family:var(--disp);font-size:15px;color:var(--creme-2);font-style:italic}
-  .ligne{position:relative;margin-top:52px;padding-left:8px}
-  .ligne::before{content:"";position:absolute;left:15px;top:14px;bottom:14px;width:2px;
-    background:linear-gradient(180deg,var(--cuivre),var(--cuivre-soft) 55%,var(--bleu));border-radius:2px;opacity:.55}
-  .arret{position:relative;display:grid;grid-template-columns:32px 1fr;align-items:baseline;
-    gap:20px;padding:15px 0}
-  .arret::before{content:"";position:absolute;left:9px;top:22px;width:14px;height:14px;border-radius:50%;
-    background:var(--nuit);border:2px solid var(--cuivre);transition:background .2s,transform .2s,border-color .2s}
-  .arret:hover::before{background:var(--cuivre);transform:scale(1.15)}
-  .arret .num{font-family:var(--disp);font-size:14px;color:var(--creme-2);font-variant-numeric:tabular-nums;grid-column:1;text-align:right}
-  .arret .nom{font-family:var(--disp);font-weight:500;font-size:clamp(21px,3vw,27px);line-height:1.15}
-  .arret .mot{color:var(--creme-2);font-size:15px;margin-left:14px;font-style:italic}
-  @media(max-width:540px){.arret .mot{display:block;margin-left:0;margin-top:2px}}
+  .ligne{position:relative;margin-top:50px;padding-left:4px}
+  .ligne::before{content:"";position:absolute;left:19px;top:26px;bottom:26px;width:2px;
+    background:linear-gradient(180deg,var(--cuivre),var(--cuivre-soft) 55%,var(--bleu));border-radius:2px;opacity:.5}
+  .arret{position:relative;display:flex;align-items:center;gap:8px 16px;flex-wrap:wrap;
+    padding:17px 0 17px 54px;border-bottom:1px solid var(--bord)}
+  .arret:last-child{border-bottom:0}
+  .arret::before{content:"";position:absolute;left:12px;top:50%;transform:translateY(-50%);
+    width:15px;height:15px;border-radius:50%;background:var(--nuit);border:3px solid var(--cuivre);
+    box-shadow:0 0 0 5px var(--nuit);transition:background .2s,transform .2s}
+  .arret:hover::before{background:var(--cuivre);transform:translateY(-50%) scale(1.15)}
+  .arret .nom{font-family:var(--disp);font-weight:500;font-size:clamp(21px,2.7vw,27px);line-height:1.1}
+  .arret .mot{color:var(--creme-2);font-size:15px;font-style:italic}
+  @media(max-width:520px){.arret{gap:2px 16px}.arret .mot{flex-basis:100%}}
 
   /* ---- À bord (features en prose, pas en cartes génériques) ---- */
   .abord{border-top:1px solid var(--bord)}
@@ -177,17 +178,17 @@
       <p class="count">choisis ton arrêt selon l'humeur</p>
     </div>
     <div class="ligne">
-      <div class="arret"><span class="num">01</span><span><span class="nom">Sommeil</span><span class="mot">se laisser glisser</span></span></div>
-      <div class="arret"><span class="num">02</span><span><span class="nom">Détente</span><span class="mot">relâcher les épaules</span></span></div>
-      <div class="arret"><span class="num">03</span><span><span class="nom">Stress &amp; Anxiété</span><span class="mot">retrouver le calme</span></span></div>
-      <div class="arret"><span class="num">04</span><span><span class="nom">Lâcher-prise</span><span class="mot">accepter ce qui est</span></span></div>
-      <div class="arret"><span class="num">05</span><span><span class="nom">Corps &amp; Souffle</span><span class="mot">revenir au souffle</span></span></div>
-      <div class="arret"><span class="num">06</span><span><span class="nom">Clarté &amp; Concentration</span><span class="mot">poser l'esprit</span></span></div>
-      <div class="arret"><span class="num">07</span><span><span class="nom">Énergie &amp; Motivation</span><span class="mot">se remettre en marche</span></span></div>
-      <div class="arret"><span class="num">08</span><span><span class="nom">Confiance &amp; Estime</span><span class="mot">se tenir droit</span></span></div>
-      <div class="arret"><span class="num">09</span><span><span class="nom">Joie &amp; Gratitude</span><span class="mot">savourer le présent</span></span></div>
-      <div class="arret"><span class="num">10</span><span><span class="nom">Manifestation</span><span class="mot">appeler ce qui vient</span></span></div>
-      <div class="arret"><span class="num">11</span><span><span class="nom">Spiritualité</span><span class="mot">se relier au plus grand</span></span></div>
+      <div class="arret"><span class="nom">Sommeil</span><span class="mot">se laisser glisser</span></div>
+      <div class="arret"><span class="nom">Détente</span><span class="mot">relâcher les épaules</span></div>
+      <div class="arret"><span class="nom">Stress &amp; Anxiété</span><span class="mot">retrouver le calme</span></div>
+      <div class="arret"><span class="nom">Lâcher-prise</span><span class="mot">accepter ce qui est</span></div>
+      <div class="arret"><span class="nom">Corps &amp; Souffle</span><span class="mot">revenir au souffle</span></div>
+      <div class="arret"><span class="nom">Clarté &amp; Concentration</span><span class="mot">poser l'esprit</span></div>
+      <div class="arret"><span class="nom">Énergie &amp; Motivation</span><span class="mot">se remettre en marche</span></div>
+      <div class="arret"><span class="nom">Confiance &amp; Estime</span><span class="mot">se tenir droit</span></div>
+      <div class="arret"><span class="nom">Joie &amp; Gratitude</span><span class="mot">savourer le présent</span></div>
+      <div class="arret"><span class="nom">Manifestation</span><span class="mot">appeler ce qui vient</span></div>
+      <div class="arret"><span class="nom">Spiritualité</span><span class="mot">se relier au plus grand</span></div>
     </div>
   </section>
 
