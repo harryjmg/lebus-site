@@ -34,6 +34,30 @@ hébergé gratuitement par GitHub. Il n'y a que **3 briques** :
 À ce stade le site marche déjà. Les parties B et C servent juste à lui donner
 **ta** propre adresse.
 
+### ⚡ Variante automatisée (toute la partie A en une commande)
+
+Cette partie A est la **seule étape 100 % automatisable** de la méthode. Au lieu
+des 5 clics ci-dessus, on peut tout faire d'un coup avec l'outil **GitHub CLI**
+(`gh`) et le script **[`creer-site.sh`](creer-site.sh)** fourni :
+
+```bash
+# Une seule fois : installer et se connecter
+brew install gh        # (macOS ; sinon https://cli.github.com)
+gh auth login
+
+# Créer le dépôt + la page + activer Pages, d'un coup :
+./creer-site.sh mon-site            # avec une page d'exemple
+./creer-site.sh mon-site page.html  # ou avec ta propre page
+```
+
+Le script crée le dépôt public, pousse ton `index.html` et active Pages tout
+seul, puis affiche l'URL en ligne. Idéal si tu prépares plusieurs sites (ou si
+tu montes le site *pour* tes élèves). Pour un élève seul qui le fait une fois,
+les 5 clics ci-dessus restent le plus simple — aucune installation.
+
+> *L'achat du domaine (B) et le DNS (C) ne s'automatisent pas ainsi : ils
+> touchent au paiement et au compte du registrar. Ils restent manuels.*
+
 ---
 
 ## Partie B — Le nom de domaine
