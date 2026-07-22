@@ -4,214 +4,235 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Le bus — Méditations guidées, un épisode à la fois</title>
-<meta name="description" content="Le bus, c'est 626 épisodes de méditation guidée du podcast « Je médite tous les jours », rangés en 11 rayons. Le bus t'emmène, un épisode à la fois.">
+<meta name="description" content="Le bus, c'est 626 épisodes de méditation guidée du podcast « Je médite tous les jours », rangés en 11 rayons comme les arrêts d'une ligne. Le bus t'emmène, un épisode à la fois.">
 <meta property="og:title" content="Le bus — Méditations guidées">
-<meta property="og:description" content="626 épisodes de méditation guidée, rangés en 11 rayons. Le bus t'emmène, un épisode à la fois.">
+<meta property="og:description" content="626 épisodes de méditation guidée, une ligne de 11 arrêts. Le bus t'emmène, un épisode à la fois.">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#15161E">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Mulish:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --nuit:#15161E;
     --nuit-2:#1B1D28;
-    --nuit-3:#22252F;
+    --nuit-3:#23262F;
     --creme:#ECE3D2;
-    --creme-2:#C9C2B4;
+    --creme-2:#B7B0A2;
     --cuivre:#F5934D;
-    --cuivre-2:#C56A4A;
-    --bord:rgba(236,227,210,.10);
-    --r:20px;
-    --max:1080px;
+    --cuivre-soft:#C56A4A;
+    --bleu:#5D6EA8;
+    --bord:rgba(236,227,210,.09);
+    --disp:"Fraunces",Georgia,serif;
+    --body:"Mulish",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --max:1060px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   body{
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-family:var(--body);
     background:var(--nuit);
     color:var(--creme);
-    line-height:1.6;
+    line-height:1.65;
+    font-size:17px;
     -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
   }
-  /* fond « heure bleue » : nuit profonde + une lueur cuivre unique */
+  /* atmosphère « heure bleue » : nuit profonde, une lueur cuivre, un voile bleu */
   body::before{
     content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
     background:
-      radial-gradient(60% 45% at 50% -5%, rgba(245,147,77,.16), transparent 70%),
-      radial-gradient(50% 40% at 85% 15%, rgba(93,110,168,.12), transparent 70%),
-      linear-gradient(180deg,#181B24 0%, #15161E 45%, #121218 100%);
+      radial-gradient(55% 40% at 50% -8%, rgba(245,147,77,.15), transparent 68%),
+      radial-gradient(45% 38% at 88% 8%, rgba(93,110,168,.13), transparent 70%),
+      linear-gradient(180deg,#181B24 0%,#15161E 42%,#111117 100%);
   }
   a{color:inherit;text-decoration:none}
-  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
-  section{padding:88px 0}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 26px}
+  main section{padding:92px 0}
+
+  .eyebrow{font-family:var(--body);font-size:12.5px;letter-spacing:2.4px;text-transform:uppercase;
+    color:var(--cuivre);font-weight:700}
+  h2{font-family:var(--disp);font-optical-sizing:auto;font-weight:500;
+    font-size:clamp(30px,4.6vw,46px);line-height:1.1;margin:14px 0 0}
+  .sub{color:var(--creme-2);max-width:560px;margin-top:16px;font-size:18px}
 
   /* ---- Nav ---- */
-  header{position:sticky;top:0;z-index:50;backdrop-filter:blur(12px);
-    background:rgba(21,22,30,.6);border-bottom:1px solid var(--bord)}
-  .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
-  .brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:.2px}
-  .brand svg{width:34px;height:34px;display:block}
-  .nav a.cta{font-size:14px;font-weight:600;padding:9px 16px;border-radius:999px;
-    background:var(--cuivre);color:#20130a;transition:transform .15s,box-shadow .15s}
-  .nav a.cta:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(245,147,77,.28)}
+  header{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);
+    background:rgba(21,22,30,.62);border-bottom:1px solid var(--bord)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .brand{display:flex;align-items:center;gap:11px;font-family:var(--disp);
+    font-weight:600;font-size:21px;letter-spacing:.2px}
+  .brand svg{width:32px;height:32px;display:block}
+  .nav .cta{font-family:var(--body);font-size:14px;font-weight:700;padding:10px 18px;border-radius:999px;
+    background:var(--cuivre);color:#241304;transition:transform .16s,box-shadow .16s}
+  .nav .cta:hover{transform:translateY(-1px);box-shadow:0 8px 26px rgba(245,147,77,.3)}
 
   /* ---- Hero ---- */
-  .hero{text-align:center;padding-top:64px;padding-bottom:72px}
-  .mascotte{width:132px;height:132px;margin:0 auto 28px;display:block;
-    filter:drop-shadow(0 18px 40px rgba(197,106,74,.35));
-    animation:respire 5.5s ease-in-out infinite}
-  @keyframes respire{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-8px) scale(1.02)}}
-  @media(prefers-reduced-motion:reduce){.mascotte{animation:none}}
-  .hero h1{font-size:clamp(38px,7vw,68px);line-height:1.04;font-weight:800;letter-spacing:-1.5px}
-  .hero h1 .accent{color:var(--cuivre)}
-  .hero .lead{font-size:clamp(17px,2.4vw,21px);color:var(--creme-2);max-width:560px;margin:22px auto 0}
-  .hero .kicker{display:inline-block;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;
-    color:var(--cuivre);border:1px solid rgba(245,147,77,.35);padding:6px 14px;border-radius:999px;margin-bottom:26px}
-  .stores{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:36px}
-  .store{display:flex;align-items:center;gap:11px;padding:13px 22px;border-radius:14px;
-    background:var(--creme);color:#1a1200;font-weight:600;transition:transform .15s,box-shadow .15s}
-  .store:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(0,0,0,.4)}
-  .store.ghost{background:transparent;color:var(--creme);border:1px solid var(--bord)}
-  .store small{display:block;font-size:11px;font-weight:500;opacity:.7;line-height:1}
-  .store b{font-size:16px;line-height:1.15}
-  .store svg{width:24px;height:24px;flex:none}
-  .proof{margin-top:22px;font-size:14px;color:var(--creme-2)}
-  .proof b{color:var(--creme)}
+  .hero{text-align:center;padding-top:78px;padding-bottom:70px}
+  .mascotte{width:120px;height:120px;margin:0 auto 30px;display:block;
+    filter:drop-shadow(0 20px 44px rgba(197,106,74,.38));
+    animation:respire 6s ease-in-out infinite}
+  @keyframes respire{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-9px) scale(1.025)}}
+  .kicker{display:inline-block;font-size:12.5px;letter-spacing:2.4px;text-transform:uppercase;
+    color:var(--cuivre);border:1px solid rgba(245,147,77,.32);padding:7px 15px;border-radius:999px;
+    margin-bottom:30px;font-weight:600}
+  .hero h1{font-family:var(--disp);font-optical-sizing:auto;font-weight:500;
+    font-size:clamp(42px,7.6vw,78px);line-height:1.02;letter-spacing:-.5px}
+  .hero h1 em{font-style:italic;font-weight:400;color:var(--cuivre)}
+  .hero .lead{font-size:19px;color:var(--creme-2);max-width:540px;margin:26px auto 0}
+  .stores{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:40px}
+  .store{display:inline-flex;align-items:center;gap:12px;padding:13px 22px;border-radius:15px;
+    background:var(--creme);color:#1a1200;font-weight:700;transition:transform .16s,box-shadow .16s}
+  .store:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(0,0,0,.42)}
+  .store.ghost{background:transparent;color:var(--creme);border:1px solid var(--bord);font-weight:600}
+  .store small{display:block;font-size:11px;font-weight:500;opacity:.72;line-height:1;letter-spacing:.2px}
+  .store b{font-size:16px;line-height:1.2}
+  .store svg{width:23px;height:23px;flex:none}
+  .proof{margin-top:26px;font-size:14.5px;color:var(--creme-2);font-variant-numeric:tabular-nums}
+  .proof b{color:var(--creme);font-weight:700}
 
-  /* ---- sections génériques ---- */
-  .eyebrow{font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--cuivre);font-weight:700}
-  h2{font-size:clamp(28px,4.5vw,42px);line-height:1.12;letter-spacing:-.8px;font-weight:800;margin:12px 0 0}
-  .sub{color:var(--creme-2);max-width:620px;margin-top:14px;font-size:17px}
+  /* ---- La ligne (signature : les 11 rayons = 11 arrêts) ---- */
+  .ligne-intro{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px}
+  .ligne-intro .count{font-family:var(--disp);font-size:15px;color:var(--creme-2);font-style:italic}
+  .ligne{position:relative;margin-top:52px;padding-left:8px}
+  .ligne::before{content:"";position:absolute;left:15px;top:14px;bottom:14px;width:2px;
+    background:linear-gradient(180deg,var(--cuivre),var(--cuivre-soft) 55%,var(--bleu));border-radius:2px;opacity:.55}
+  .arret{position:relative;display:grid;grid-template-columns:32px 1fr;align-items:baseline;
+    gap:20px;padding:15px 0}
+  .arret::before{content:"";position:absolute;left:9px;top:22px;width:14px;height:14px;border-radius:50%;
+    background:var(--nuit);border:2px solid var(--cuivre);transition:background .2s,transform .2s,border-color .2s}
+  .arret:hover::before{background:var(--cuivre);transform:scale(1.15)}
+  .arret .num{font-family:var(--disp);font-size:14px;color:var(--creme-2);font-variant-numeric:tabular-nums;grid-column:1;text-align:right}
+  .arret .nom{font-family:var(--disp);font-weight:500;font-size:clamp(21px,3vw,27px);line-height:1.15}
+  .arret .mot{color:var(--creme-2);font-size:15px;margin-left:14px;font-style:italic}
+  @media(max-width:540px){.arret .mot{display:block;margin-left:0;margin-top:2px}}
 
-  /* ---- Rayons ---- */
-  .rayons{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:40px}
-  .rayon{padding:18px 16px;border-radius:16px;background:var(--nuit-2);border:1px solid var(--bord);
-    font-weight:600;font-size:15px;display:flex;align-items:center;gap:10px;transition:border-color .2s,transform .2s,background .2s}
-  .rayon:hover{border-color:rgba(245,147,77,.4);transform:translateY(-2px);background:var(--nuit-3)}
-  .rayon .dot{width:9px;height:9px;border-radius:50%;background:var(--cuivre);flex:none;opacity:.85}
-
-  /* ---- Features ---- */
-  .feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;margin-top:44px}
-  .feat{padding:28px;border-radius:var(--r);background:var(--nuit-2);border:1px solid var(--bord)}
-  .feat .ico{width:46px;height:46px;border-radius:12px;display:grid;place-items:center;
-    background:rgba(245,147,77,.12);color:var(--cuivre);margin-bottom:16px}
-  .feat .ico svg{width:24px;height:24px}
-  .feat h3{font-size:19px;font-weight:700;margin-bottom:8px}
-  .feat p{color:var(--creme-2);font-size:15px}
+  /* ---- À bord (features en prose, pas en cartes génériques) ---- */
+  .abord{border-top:1px solid var(--bord)}
+  .feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:38px 46px;margin-top:52px}
+  .feat h3{font-family:var(--disp);font-weight:500;font-size:23px;line-height:1.2;margin-bottom:9px}
+  .feat h3 span{display:inline-block;width:26px;height:2px;background:var(--cuivre);
+    vertical-align:middle;margin-right:12px;opacity:.8}
+  .feat p{color:var(--creme-2);font-size:16px}
 
   /* ---- CTA final ---- */
-  .final{text-align:center;background:linear-gradient(180deg,var(--nuit-2),var(--nuit));
-    border:1px solid var(--bord);border-radius:28px;padding:64px 28px;margin:40px 0}
-  .final h2{margin-bottom:8px}
-  .final .sub{margin:0 auto 30px}
+  .final{text-align:center;padding:104px 26px 96px}
+  .final .mini{width:64px;height:64px;margin:0 auto 22px;display:block;opacity:.95}
+  .final h2{margin-bottom:10px}
+  .final .sub{margin:0 auto 32px}
 
   /* ---- Footer ---- */
-  footer{border-top:1px solid var(--bord);padding:40px 0;color:var(--creme-2);font-size:14px}
+  footer{border-top:1px solid var(--bord);padding:42px 0;color:var(--creme-2);font-size:14.5px}
   .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:18px;align-items:center}
-  .foot nav{display:flex;gap:22px;flex-wrap:wrap}
+  .foot .sig{font-family:var(--disp);font-style:italic}
+  .foot nav{display:flex;gap:24px;flex-wrap:wrap}
   .foot a:hover{color:var(--creme)}
+
+  :focus-visible{outline:2px solid var(--cuivre);outline-offset:3px;border-radius:4px}
+  @media(prefers-reduced-motion:reduce){.mascotte{animation:none}}
 </style>
 </head>
 <body>
 
 <header>
   <div class="wrap nav">
-    <a class="brand" href="#">
+    <a class="brand" href="#" aria-label="Le bus, accueil">
       <svg viewBox="0 0 512 512" aria-hidden="true"><g fill="#ECE3D2"><path d="M228.965 130.562C178.846 134.503 140.945 161.566 127.283 203.145C120.648 223.376 119.729 232.901 120.057 275.663C120.451 318.293 121.502 326.898 127.939 339.641C131.421 346.604 137.07 352.056 144.361 355.669C152.966 359.938 152.835 359.938 154.674 354.683C164.527 326.175 204.004 327.423 211.427 356.522C212.346 360.069 212.346 360.069 253.597 360.069C294.848 360.069 294.848 360.069 295.702 356.654C301.614 333.467 329.399 325.978 345.821 343.254C348.777 346.341 353.112 354.355 353.112 356.785C353.178 360.398 357.25 360.529 366.906 357.376C384.707 351.465 391.735 338.919 391.013 314.418C390.356 292.15 388.517 288.669 367.431 268.7C360.075 261.803 358.498 257.074 356.396 236.251C353.178 203.539 346.083 184.753 329.859 165.77C322.174 156.836 308.248 146.589 297.41 141.991C294.257 140.678 290.644 139.101 289.396 138.576C281.185 135.029 267.588 132.138 252.612 130.825C240.854 129.774 239.343 129.774 228.965 130.562Z"/><path d="M177.73 345.224C157.367 351.465 159.994 380.432 181.014 381.943C203.282 383.519 209.39 351.924 188.042 345.619C184.495 344.568 180.423 344.436 177.73 345.224Z"/><path d="M318.955 345.224C297.673 352.187 303.19 383.257 325.458 381.943C349.236 380.498 349.105 345.947 325.261 344.896C322.699 344.765 319.875 344.896 318.955 345.224Z"/></g><g fill="#C56A4A"><path d="M182.459 223.836C176.285 226.201 180.948 236.185 190.407 240.849C202.428 246.761 216.682 243.542 223.644 233.361C226.666 228.96 226.863 227.449 224.498 225.084C221.739 222.325 220.885 222.523 216.287 227.318C207.748 236.12 198.158 236.514 190.21 228.369C185.875 223.902 184.495 223.048 182.459 223.836Z"/><path d="M256.093 223.902C253.334 225.216 252.875 227.909 254.911 231.39C264.173 247.221 287.294 248.272 297.607 233.361C300.3 229.42 300.497 227.186 298.395 225.216C295.505 222.523 293.206 223.311 289.462 228.237C283.222 236.317 269.165 235.857 263.056 227.449C261.48 225.216 258.524 222.851 257.67 223.179C257.604 223.179 256.882 223.508 256.093 223.902Z"/></g></svg>
       Le bus
     </a>
-    <a class="cta" href="#telecharger">Télécharger</a>
+    <a class="cta" href="#telecharger">Monter à bord</a>
   </div>
 </header>
 
 <main>
   <section class="hero wrap">
-    <svg class="mascotte" viewBox="0 0 512 512" aria-label="La mascotte du Bus, un petit bus endormi">
+    <svg class="mascotte" viewBox="0 0 512 512" aria-label="La mascotte du Bus : un petit bus aux yeux fermés">
       <g fill="#ECE3D2"><path d="M228.965 130.562C178.846 134.503 140.945 161.566 127.283 203.145C120.648 223.376 119.729 232.901 120.057 275.663C120.451 318.293 121.502 326.898 127.939 339.641C131.421 346.604 137.07 352.056 144.361 355.669C152.966 359.938 152.835 359.938 154.674 354.683C164.527 326.175 204.004 327.423 211.427 356.522C212.346 360.069 212.346 360.069 253.597 360.069C294.848 360.069 294.848 360.069 295.702 356.654C301.614 333.467 329.399 325.978 345.821 343.254C348.777 346.341 353.112 354.355 353.112 356.785C353.178 360.398 357.25 360.529 366.906 357.376C384.707 351.465 391.735 338.919 391.013 314.418C390.356 292.15 388.517 288.669 367.431 268.7C360.075 261.803 358.498 257.074 356.396 236.251C353.178 203.539 346.083 184.753 329.859 165.77C322.174 156.836 308.248 146.589 297.41 141.991C294.257 140.678 290.644 139.101 289.396 138.576C281.185 135.029 267.588 132.138 252.612 130.825C240.854 129.774 239.343 129.774 228.965 130.562Z"/><path d="M177.73 345.224C157.367 351.465 159.994 380.432 181.014 381.943C203.282 383.519 209.39 351.924 188.042 345.619C184.495 344.568 180.423 344.436 177.73 345.224Z"/><path d="M318.955 345.224C297.673 352.187 303.19 383.257 325.458 381.943C349.236 380.498 349.105 345.947 325.261 344.896C322.699 344.765 319.875 344.896 318.955 345.224Z"/></g>
       <g fill="#C56A4A"><path d="M182.459 223.836C176.285 226.201 180.948 236.185 190.407 240.849C202.428 246.761 216.682 243.542 223.644 233.361C226.666 228.96 226.863 227.449 224.498 225.084C221.739 222.325 220.885 222.523 216.287 227.318C207.748 236.12 198.158 236.514 190.21 228.369C185.875 223.902 184.495 223.048 182.459 223.836Z"/><path d="M256.093 223.902C253.334 225.216 252.875 227.909 254.911 231.39C264.173 247.221 287.294 248.272 297.607 233.361C300.3 229.42 300.497 227.186 298.395 225.216C295.505 222.523 293.206 223.311 289.462 228.237C283.222 236.317 269.165 235.857 263.056 227.449C261.48 225.216 258.524 222.851 257.67 223.179C257.604 223.179 256.882 223.508 256.093 223.902Z"/></g>
     </svg>
     <span class="kicker">Méditation guidée</span>
-    <h1>Le bus t'emmène,<br><span class="accent">un épisode à la fois.</span></h1>
-    <p class="lead">626 épisodes de méditation guidée, tirés du podcast « Je médite tous les jours » et rangés en 11 rayons. Monte à bord, ferme les yeux, laisse-toi conduire.</p>
+    <h1>Le bus t'emmène,<br><em>un épisode à la fois.</em></h1>
+    <p class="lead">626 méditations guidées, tirées du podcast « Je médite tous les jours ». Monte à bord, ferme les yeux, laisse-toi conduire.</p>
     <div class="stores" id="telecharger">
-      <!-- Remplace le href="#" par ton lien App Store quand l'app est publiée -->
+      <!-- Remplace href="#" par ton lien App Store quand l'app est publiée -->
       <a class="store" href="#" aria-label="Télécharger sur l'App Store">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.365 1.43c0 1.14-.417 2.2-1.11 2.98-.83.93-2.2 1.65-3.34 1.56-.14-1.13.42-2.32 1.09-3.06.76-.84 2.1-1.47 3.24-1.5.05.01.09.01.12.02zM20.9 17.02c-.55 1.27-.82 1.84-1.53 2.96-1 1.56-2.4 3.5-4.14 3.51-1.55.02-1.95-1-4.05-.99-2.1.01-2.53 1.01-4.08.99-1.74-.02-3.07-1.77-4.06-3.32C-.6 15.9-.9 10.14 1.72 7.36c1.03-1.1 2.4-1.79 3.85-1.79 1.56 0 2.55 1 4.05 1 1.46 0 2.34-1 4.14-1 1.29 0 2.66.7 3.63 1.91-3.19 1.75-2.67 6.3.51 7.54z"/></svg>
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.417 2.2-1.11 2.98-.83.93-2.2 1.65-3.34 1.56-.14-1.13.42-2.32 1.09-3.06.76-.84 2.1-1.47 3.24-1.5.05.01.09.01.12.02zM20.9 17.02c-.55 1.27-.82 1.84-1.53 2.96-1 1.56-2.4 3.5-4.14 3.51-1.55.02-1.95-1-4.05-.99-2.1.01-2.53 1.01-4.08.99-1.74-.02-3.07-1.77-4.06-3.32C-.6 15.9-.9 10.14 1.72 7.36c1.03-1.1 2.4-1.79 3.85-1.79 1.56 0 2.55 1 4.05 1 1.46 0 2.34-1 4.14-1 1.29 0 2.66.7 3.63 1.91-3.19 1.75-2.67 6.3.51 7.54z"/></svg>
         <span><small>Télécharger sur</small><b>App Store</b></span>
       </a>
-      <a class="store ghost" href="#" aria-label="Disponible sur Google Play">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 1.8 13 11.2 3.6 20.6c-.4-.2-.6-.6-.6-1.1V2.9c0-.5.2-.9.6-1.1zM14.4 12.6l2.7 2.7-9.9 5.7 7.2-8.4zm4.1-4.1 2.6 1.5c.7.4.7 1.4 0 1.8l-2.6 1.5-3-3 3-1.8zM7.2 3 17.1 8.7l-2.7 2.7L7.2 3z"/></svg>
+      <a class="store ghost" href="#" aria-label="Bientôt sur Google Play">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 1.8 13 11.2 3.6 20.6c-.4-.2-.6-.6-.6-1.1V2.9c0-.5.2-.9.6-1.1zM14.4 12.6l2.7 2.7-9.9 5.7 7.2-8.4zm4.1-4.1 2.6 1.5c.7.4.7 1.4 0 1.8l-2.6 1.5-3-3 3-1.8zM7.2 3 17.1 8.7l-2.7 2.7L7.2 3z"/></svg>
         <span><small>Bientôt sur</small><b>Google Play</b></span>
       </a>
     </div>
-    <p class="proof">Issu du podcast <b>« Je médite tous les jours »</b> · <b>626</b> épisodes · <b>11</b> rayons</p>
+    <p class="proof">Podcast <b>« Je médite tous les jours »</b> &nbsp;·&nbsp; <b>626</b> épisodes &nbsp;·&nbsp; <b>11</b> rayons</p>
   </section>
 
-  <section class="wrap" id="rayons">
-    <span class="eyebrow">La bibliothèque</span>
-    <h2>Onze rayons, une pratique pour chaque état d'esprit.</h2>
-    <p class="sub">Chaque épisode est rangé, illustré et retranscrit. Tu choisis un rayon selon ce dont tu as besoin ce soir — le bus s'occupe du reste.</p>
-    <div class="rayons">
-      <div class="rayon"><span class="dot"></span>Sommeil</div>
-      <div class="rayon"><span class="dot"></span>Détente</div>
-      <div class="rayon"><span class="dot"></span>Stress &amp; Anxiété</div>
-      <div class="rayon"><span class="dot"></span>Lâcher-prise</div>
-      <div class="rayon"><span class="dot"></span>Corps &amp; Souffle</div>
-      <div class="rayon"><span class="dot"></span>Clarté &amp; Concentration</div>
-      <div class="rayon"><span class="dot"></span>Énergie &amp; Motivation</div>
-      <div class="rayon"><span class="dot"></span>Confiance &amp; Estime</div>
-      <div class="rayon"><span class="dot"></span>Joie &amp; Gratitude</div>
-      <div class="rayon"><span class="dot"></span>Manifestation</div>
-      <div class="rayon"><span class="dot"></span>Spiritualité</div>
+  <section class="wrap" id="rayons" aria-labelledby="titre-ligne">
+    <div class="ligne-intro">
+      <div>
+        <span class="eyebrow">La ligne</span>
+        <h2 id="titre-ligne">Onze arrêts, un pour chaque soir.</h2>
+      </div>
+      <p class="count">choisis ton arrêt selon l'humeur</p>
+    </div>
+    <div class="ligne">
+      <div class="arret"><span class="num">01</span><span><span class="nom">Sommeil</span><span class="mot">se laisser glisser</span></span></div>
+      <div class="arret"><span class="num">02</span><span><span class="nom">Détente</span><span class="mot">relâcher les épaules</span></span></div>
+      <div class="arret"><span class="num">03</span><span><span class="nom">Stress &amp; Anxiété</span><span class="mot">retrouver le calme</span></span></div>
+      <div class="arret"><span class="num">04</span><span><span class="nom">Lâcher-prise</span><span class="mot">accepter ce qui est</span></span></div>
+      <div class="arret"><span class="num">05</span><span><span class="nom">Corps &amp; Souffle</span><span class="mot">revenir au souffle</span></span></div>
+      <div class="arret"><span class="num">06</span><span><span class="nom">Clarté &amp; Concentration</span><span class="mot">poser l'esprit</span></span></div>
+      <div class="arret"><span class="num">07</span><span><span class="nom">Énergie &amp; Motivation</span><span class="mot">se remettre en marche</span></span></div>
+      <div class="arret"><span class="num">08</span><span><span class="nom">Confiance &amp; Estime</span><span class="mot">se tenir droit</span></span></div>
+      <div class="arret"><span class="num">09</span><span><span class="nom">Joie &amp; Gratitude</span><span class="mot">savourer le présent</span></span></div>
+      <div class="arret"><span class="num">10</span><span><span class="nom">Manifestation</span><span class="mot">appeler ce qui vient</span></span></div>
+      <div class="arret"><span class="num">11</span><span><span class="nom">Spiritualité</span><span class="mot">se relier au plus grand</span></span></div>
     </div>
   </section>
 
-  <section class="wrap" id="fonctionnalites">
+  <section class="abord"><div class="wrap">
     <span class="eyebrow">À bord</span>
     <h2>Fait pour s'endormir, pas pour scroller.</h2>
     <div class="feats">
       <div class="feat">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></div>
-        <h3>Pensé pour le soir</h3>
-        <p>Interface sombre, lumière chaude et unique : rien ne t'agresse les yeux quand tu prépares le sommeil.</p>
+        <h3><span></span>Pensé pour le soir</h3>
+        <p>Fond de nuit, une seule lumière chaude. Rien ne t'agresse les yeux au moment de te coucher.</p>
       </div>
       <div class="feat">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg></div>
-        <h3>Paroles synchronisées</h3>
-        <p>Chaque méditation défile mot à mot, comme des paroles de chanson, pour suivre sans effort.</p>
+        <h3><span></span>Les mots défilent</h3>
+        <p>Chaque méditation s'affiche mot à mot, comme des paroles, pour suivre sans effort.</p>
       </div>
       <div class="feat">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 15l5-5 4 4 3-3 6 6"/><circle cx="8.5" cy="9.5" r="1.5"/></svg></div>
-        <h3>Une illustration par épisode</h3>
-        <p>Chaque séance a sa propre image, tirée de ses mots. Une bibliothèque qui donne envie d'y revenir.</p>
+        <h3><span></span>Une image par épisode</h3>
+        <p>Chaque séance porte sa propre illustration, tirée de ses mots. Une bibliothèque où l'on revient.</p>
       </div>
       <div class="feat">
-        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4"/></svg></div>
-        <h3>Un parcours à ton rythme</h3>
-        <p>Tu dis ton objectif et ta cadence à l'arrivée ; le bus t'oriente vers le bon épisode, soir après soir.</p>
+        <h3><span></span>Ton rythme, ton trajet</h3>
+        <p>Tu dis ton objectif et ta cadence ; le bus t'oriente vers le bon épisode, soir après soir.</p>
       </div>
     </div>
-  </section>
+  </div></section>
 
-  <section class="wrap">
-    <div class="final">
-      <h2>Prêt à monter à bord ?</h2>
-      <p class="sub">Ton premier trajet t'attend. Le bus t'emmène, un épisode à la fois.</p>
-      <a class="store" href="#" style="display:inline-flex">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.365 1.43c0 1.14-.417 2.2-1.11 2.98-.83.93-2.2 1.65-3.34 1.56-.14-1.13.42-2.32 1.09-3.06.76-.84 2.1-1.47 3.24-1.5.05.01.09.01.12.02zM20.9 17.02c-.55 1.27-.82 1.84-1.53 2.96-1 1.56-2.4 3.5-4.14 3.51-1.55.02-1.95-1-4.05-.99-2.1.01-2.53 1.01-4.08.99-1.74-.02-3.07-1.77-4.06-3.32C-.6 15.9-.9 10.14 1.72 7.36c1.03-1.1 2.4-1.79 3.85-1.79 1.56 0 2.55 1 4.05 1 1.46 0 2.34-1 4.14-1 1.29 0 2.66.7 3.63 1.91-3.19 1.75-2.67 6.3.51 7.54z"/></svg>
-        <span><small>Télécharger sur</small><b>App Store</b></span>
-      </a>
-    </div>
+  <section class="final wrap">
+    <svg class="mini" viewBox="0 0 512 512" aria-hidden="true"><g fill="#ECE3D2"><path d="M228.965 130.562C178.846 134.503 140.945 161.566 127.283 203.145C120.648 223.376 119.729 232.901 120.057 275.663C120.451 318.293 121.502 326.898 127.939 339.641C131.421 346.604 137.07 352.056 144.361 355.669C152.966 359.938 152.835 359.938 154.674 354.683C164.527 326.175 204.004 327.423 211.427 356.522C212.346 360.069 212.346 360.069 253.597 360.069C294.848 360.069 294.848 360.069 295.702 356.654C301.614 333.467 329.399 325.978 345.821 343.254C348.777 346.341 353.112 354.355 353.112 356.785C353.178 360.398 357.25 360.529 366.906 357.376C384.707 351.465 391.735 338.919 391.013 314.418C390.356 292.15 388.517 288.669 367.431 268.7C360.075 261.803 358.498 257.074 356.396 236.251C353.178 203.539 346.083 184.753 329.859 165.77C322.174 156.836 308.248 146.589 297.41 141.991C294.257 140.678 290.644 139.101 289.396 138.576C281.185 135.029 267.588 132.138 252.612 130.825C240.854 129.774 239.343 129.774 228.965 130.562Z"/><path d="M177.73 345.224C157.367 351.465 159.994 380.432 181.014 381.943C203.282 383.519 209.39 351.924 188.042 345.619C184.495 344.568 180.423 344.436 177.73 345.224Z"/><path d="M318.955 345.224C297.673 352.187 303.19 383.257 325.458 381.943C349.236 380.498 349.105 345.947 325.261 344.896C322.699 344.765 319.875 344.896 318.955 345.224Z"/></g></svg>
+    <span class="eyebrow">Le départ</span>
+    <h2>Prêt à monter à bord&nbsp;?</h2>
+    <p class="sub">Ton premier trajet t'attend. Le bus t'emmène, un épisode à la fois.</p>
+    <a class="store" href="#" aria-label="Télécharger sur l'App Store">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.365 1.43c0 1.14-.417 2.2-1.11 2.98-.83.93-2.2 1.65-3.34 1.56-.14-1.13.42-2.32 1.09-3.06.76-.84 2.1-1.47 3.24-1.5.05.01.09.01.12.02zM20.9 17.02c-.55 1.27-.82 1.84-1.53 2.96-1 1.56-2.4 3.5-4.14 3.51-1.55.02-1.95-1-4.05-.99-2.1.01-2.53 1.01-4.08.99-1.74-.02-3.07-1.77-4.06-3.32C-.6 15.9-.9 10.14 1.72 7.36c1.03-1.1 2.4-1.79 3.85-1.79 1.56 0 2.55 1 4.05 1 1.46 0 2.34-1 4.14-1 1.29 0 2.66.7 3.63 1.91-3.19 1.75-2.67 6.3.51 7.54z"/></svg>
+      <span><small>Télécharger sur</small><b>App Store</b></span>
+    </a>
   </section>
 </main>
 
 <footer>
   <div class="wrap foot">
-    <div>© 2026 Le bus · Méditations guidées</div>
+    <div class="sig">© 2026 Le bus — méditations guidées</div>
     <nav>
-      <a href="#rayons">Les rayons</a>
-      <a href="#fonctionnalites">L'app</a>
-      <!-- Ajoute tes pages quand elles existent : confidentialité, contact -->
+      <a href="#rayons">La ligne</a>
+      <a href="#telecharger">Télécharger</a>
+      <!-- Ajoute confidentialité / contact quand ces pages existent -->
       <a href="mailto:harry.gueguen@gmail.com">Contact</a>
     </nav>
   </div>
