@@ -24,18 +24,55 @@
   body{
     font-family:var(--body); background:var(--nuit); color:var(--creme);
     line-height:1.65; -webkit-font-smoothing:antialiased;
-    min-height:100svh; display:flex; flex-direction:column;
-  }
-  /* atmosphère « heure bleue » : nuit profonde, une seule lueur chaude */
-  body::before{
-    content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
-    background:
-      radial-gradient(58% 42% at 50% -6%, rgba(245,147,77,.16), transparent 68%),
-      radial-gradient(46% 38% at 86% 10%, rgba(93,110,168,.12), transparent 70%),
-      linear-gradient(180deg,#181B24 0%,#15161E 45%,#111117 100%);
+    min-height:100svh; display:flex; flex-direction:column; overflow-x:hidden;
   }
   a{color:inherit;text-decoration:none}
 
+  /* ---------- Les fenêtres du bus (fond) ----------
+     Deux bandes à profondeurs différentes : chacune défile en boucle et
+     réagit à la souris avec une amplitude propre. Chaque fenêtre est un
+     épisode — la profusion se lit d'un coup d'œil.                        */
+  .fenetres{position:fixed; inset:0; z-index:-2; overflow:hidden; pointer-events:none}
+  .bande{
+    position:absolute; left:-10%; width:120%;
+    transition:transform .8s cubic-bezier(.2,.8,.2,1); will-change:transform;
+  }
+  .bande--loin{top:6%}
+  .bande--pres{top:67%}
+  .defile{display:flex; width:max-content; gap:26px; animation:defiler 95s linear infinite}
+  .bande--pres .defile{gap:34px; animation-duration:64s; animation-direction:reverse}
+  @keyframes defiler{ to{ transform:translateX(-50%) } }
+
+  .fenetre{
+    flex:none; width:170px; height:132px; border-radius:28px; overflow:hidden;
+    opacity:.46; position:relative;
+    box-shadow:inset 0 0 0 1px rgba(236,227,210,.22), 0 10px 30px rgba(0,0,0,.35);
+  }
+  .bande--pres .fenetre{width:240px; height:180px; border-radius:34px; opacity:.58}
+  .fenetre img{width:100%; height:100%; object-fit:cover; display:block}
+  /* reflet de vitre */
+  .fenetre::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(135deg, rgba(236,227,210,.10), transparent 42%);
+  }
+
+  /* voile qui protège la lisibilité du texte au centre */
+  .fenetres::after{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(50% 40% at 50% 47%,
+      rgba(21,22,30,.94), rgba(21,22,30,.58) 62%, rgba(21,22,30,.10) 100%);
+  }
+
+  /* atmosphère « heure bleue », par-dessus les fenêtres mais sous le texte */
+  body::before{
+    content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+    background:
+      radial-gradient(58% 42% at 50% -6%, rgba(245,147,77,.15), transparent 68%),
+      radial-gradient(46% 38% at 86% 10%, rgba(93,110,168,.12), transparent 70%),
+      linear-gradient(180deg, rgba(24,27,36,.55), transparent 38%, rgba(17,17,23,.75));
+  }
+
+  /* ---------- Contenu ---------- */
   main{
     flex:1; display:flex; flex-direction:column; justify-content:center;
     align-items:center; text-align:center;
@@ -43,11 +80,10 @@
   }
   .mascotte{
     width:128px; height:128px; margin-bottom:2rem;
-    filter:drop-shadow(0 20px 44px rgba(197,106,74,.38));
+    filter:drop-shadow(0 20px 44px rgba(197,106,74,.42));
     animation:respire 6s ease-in-out infinite;
   }
   @keyframes respire{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-9px) scale(1.025)}}
-  @media(prefers-reduced-motion:reduce){.mascotte{animation:none}}
 
   .kicker{
     font-size:12.5px; letter-spacing:2.4px; text-transform:uppercase;
@@ -56,6 +92,7 @@
   h1{
     font-family:var(--disp); font-optical-sizing:auto; font-weight:500;
     font-size:clamp(2.5rem,8vw,4.4rem); line-height:1.02; letter-spacing:-.5px;
+    text-shadow:0 2px 30px rgba(17,17,23,.7);
   }
   h1 em{font-style:italic; font-weight:400; color:var(--cuivre)}
   .lead{
@@ -68,20 +105,18 @@
     padding:15px 26px; border-radius:16px; background:var(--creme); color:#1a1200;
     font-weight:700; transition:transform .16s, box-shadow .16s;
   }
-  .store:hover{transform:translateY(-2px); box-shadow:0 16px 38px rgba(0,0,0,.45)}
+  .store:hover{transform:translateY(-2px); box-shadow:0 16px 38px rgba(0,0,0,.5)}
   .store svg{width:25px;height:25px;flex:none}
   .store small{display:block;font-size:11px;font-weight:500;opacity:.72;line-height:1}
   .store b{font-size:16.5px;line-height:1.2}
 
-  .proof{
-    margin-top:1.6rem; font-size:13.5px; color:var(--creme-2);
-    font-variant-numeric:tabular-nums;
-  }
+  .proof{margin-top:1.6rem; font-size:13.5px; color:var(--creme-2); font-variant-numeric:tabular-nums}
   .proof b{color:var(--creme); font-weight:700}
 
   footer{
     border-top:1px solid var(--bord); padding:1.6rem 1.5rem;
     color:var(--creme-2); font-size:13.5px;
+    background:rgba(17,17,23,.55); backdrop-filter:blur(6px);
   }
   .foot{
     max-width:60rem; margin:0 auto; display:flex; justify-content:space-between;
@@ -90,12 +125,27 @@
   .foot .sig{font-family:var(--disp); font-style:italic}
   .foot nav{display:flex; gap:1.5rem; flex-wrap:wrap}
   .foot a:hover{color:var(--creme)}
-  @media(max-width:520px){.foot{justify-content:center; text-align:center}}
 
   :focus-visible{outline:2px solid var(--cuivre); outline-offset:3px; border-radius:6px}
+
+  @media(max-width:640px){
+    .fenetre{width:124px; height:96px; border-radius:20px}
+    .bande--pres .fenetre{width:168px; height:126px; border-radius:26px}
+    .bande--loin{top:5%} .bande--pres{top:66%}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .mascotte{animation:none}
+    .defile{animation:none}
+    .bande{transition:none}
+  }
 </style>
 </head>
 <body>
+
+<div class="fenetres" aria-hidden="true">
+  <div class="bande bande--loin"><div class="defile" id="loin"></div></div>
+  <div class="bande bande--pres"><div class="defile" id="pres"></div></div>
+</div>
 
 <main>
   <svg class="mascotte" viewBox="0 0 512 512" aria-label="La mascotte du Bus : un petit bus aux yeux fermés">
@@ -125,6 +175,46 @@
     </nav>
   </div>
 </footer>
+
+<script>
+(function(){
+  // Les 32 paysages générés pour l'app : un par fenêtre.
+  var PAYSAGES = ['aube','aurore-boreale','baie-abritee','brume-vallee','cascade',
+    'champ-lavande','champ-tournesols','colline-matin','colline-the','desert-mesa',
+    'dunes-or','etoile-filante','falaise-blanche','feuilles-vent','foret-sauge',
+    'heure-doree','lac-reflet','lucioles','lune-montagnes','mer-calme','montgolfieres',
+    'neige-sommets','nuages-lune','phare','plage-soir','pluie-champ','riviere-douce',
+    'route-plaine','sommet-clair','vagues-soleil','village-nuit','voie-lactee'];
+
+  // Le contenu est dupliqué : la boucle -50% se referme alors sans couture.
+  function remplir(el, noms){
+    var html = noms.map(function(n){
+      return '<div class="fenetre"><img src="paysages/' + n + '.webp" alt="" decoding="async"></div>';
+    }).join('');
+    el.innerHTML = html + html;
+  }
+
+  var moitie = Math.ceil(PAYSAGES.length / 2);
+  remplir(document.getElementById('loin'), PAYSAGES.slice(0, moitie));
+  remplir(document.getElementById('pres'), PAYSAGES.slice(moitie));
+
+  // Parallaxe à la souris : chaque bande bouge d'une amplitude différente,
+  // ce qui creuse la profondeur. Désactivée si l'utilisateur limite les animations.
+  var doux = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var bandes = [
+    { el: document.querySelector('.bande--loin'), ax: -20, ay: -12 },
+    { el: document.querySelector('.bande--pres'), ax: -46, ay: -24 }
+  ];
+  window.addEventListener('pointermove', function(e){
+    if (doux.matches || e.pointerType === 'touch') return;
+    var x = e.clientX / window.innerWidth - .5;
+    var y = e.clientY / window.innerHeight - .5;
+    bandes.forEach(function(b){
+      b.el.style.transform = 'translate3d(' + (x*b.ax).toFixed(1) + 'px,' + (y*b.ay).toFixed(1) + 'px,0)';
+    });
+  }, { passive:true });
+})();
+</script>
 
 </body>
 </html>
