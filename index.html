@@ -177,13 +177,12 @@
 
 <script>
 (function(){
-  // Les 32 paysages générés pour l'app : un par fenêtre.
-  var PAYSAGES = ['aube','aurore-boreale','baie-abritee','brume-vallee','cascade',
-    'champ-lavande','champ-tournesols','colline-matin','colline-the','desert-mesa',
-    'dunes-or','etoile-filante','falaise-blanche','feuilles-vent','foret-sauge',
-    'heure-doree','lac-reflet','lucioles','lune-montagnes','mer-calme','montgolfieres',
-    'neige-sommets','nuages-lune','phare','plage-soir','pluie-champ','riviere-douce',
-    'route-plaine','sommet-clair','vagues-soleil','village-nuit','voie-lactee'];
+  // 98 vues générées pour l'app : paysages génériques et illustrations
+  // d'épisodes, prélevées sur les 11 rayons et entrelacées (vues/v001…v098).
+  var NB_VUES = 98;
+  function vue(n){
+    return 'vues/v' + ('00' + ((n % NB_VUES) + 1)).slice(-3) + '.webp';
+  }
 
   var hote = document.getElementById('fenetres');
   var doux = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -202,8 +201,11 @@
     var largeur = petit ? 138 : 190;
     var hauteur = petit ? 96 : 132;
     var gap = petit ? 16 : 22;
-    // Assez de fenêtres pour couvrir la largeur, puis on duplique pour boucler.
-    var parLigne = Math.ceil(window.innerWidth * 1.3 / (largeur + gap)) + 1;
+    // Assez de fenêtres pour couvrir la largeur — mais au moins de quoi répartir
+    // toute la collection sur les lignes, pour que le défilement fasse défiler
+    // des vues sans cesse différentes.
+    var couverture = Math.ceil(window.innerWidth * 1.3 / (largeur + gap)) + 1;
+    var parLigne = Math.max(couverture, Math.ceil(NB_VUES / lignes));
 
     hote.style.setProperty('--gap', gap + 'px');
     hote.innerHTML = '';
@@ -216,15 +218,17 @@
 
       var defile = document.createElement('div');
       defile.className = 'defile';
-      defile.style.setProperty('--dur', (68 + i * 13) + 's');
+      // Durée calée sur la longueur réelle de la bande : la vitesse perçue
+      // reste constante quel que soit le nombre de fenêtres, et varie par ligne.
+      var vitesse = 16 + i * 4;                          // px par seconde
+      defile.style.setProperty('--dur', Math.round(parLigne * (largeur + gap) / vitesse) + 's');
 
       var html = '';
       for (var j = 0; j < parLigne; j++){
-        // Décalage par ligne : deux lignes ne montrent jamais la même suite.
-        var nom = PAYSAGES[(i * 7 + j) % PAYSAGES.length];
+        // Chaque ligne pioche un bloc distinct : aucune répétition d'une ligne à l'autre.
         html += '<div class="fenetre" style="--w:' + largeur + 'px;--h:' + hauteur +
                 'px;--op:' + (0.38 + (i % 3) * 0.07).toFixed(2) + '">' +
-                '<img src="paysages/' + nom + '.webp" alt="" decoding="async"></div>';
+                '<img src="' + vue(i * parLigne + j) + '" alt="" decoding="async"></div>';
       }
       defile.innerHTML = html + html;                   // duplication : boucle sans couture
 
