@@ -32,23 +32,26 @@
      Deux bandes à profondeurs différentes : chacune défile en boucle et
      réagit à la souris avec une amplitude propre. Chaque fenêtre est un
      épisode — la profusion se lit d'un coup d'œil.                        */
-  .fenetres{position:fixed; inset:0; z-index:-2; overflow:hidden; pointer-events:none}
-  .bande{
-    position:absolute; left:-10%; width:120%;
-    transition:transform .8s cubic-bezier(.2,.8,.2,1); will-change:transform;
+  .fenetres{
+    position:fixed; inset:-4% -12%; z-index:-2; overflow:hidden; pointer-events:none;
+    display:flex; flex-direction:column; justify-content:center; gap:var(--gap,22px);
   }
-  .bande--loin{top:6%}
-  .bande--pres{top:67%}
-  .defile{display:flex; width:max-content; gap:26px; animation:defiler 95s linear infinite}
-  .bande--pres .defile{gap:34px; animation-duration:64s; animation-direction:reverse}
+  .bande{
+    width:100%; transition:transform .8s cubic-bezier(.2,.8,.2,1); will-change:transform;
+  }
+  .defile{
+    display:flex; width:max-content; gap:var(--gap,22px);
+    animation:defiler var(--dur,90s) linear infinite;
+  }
+  .bande[data-sens="1"] .defile{animation-direction:reverse}
   @keyframes defiler{ to{ transform:translateX(-50%) } }
 
   .fenetre{
-    flex:none; width:170px; height:132px; border-radius:28px; overflow:hidden;
-    opacity:.46; position:relative;
-    box-shadow:inset 0 0 0 1px rgba(236,227,210,.22), 0 10px 30px rgba(0,0,0,.35);
+    flex:none; width:var(--w,190px); height:var(--h,132px);
+    border-radius:26px; overflow:hidden; position:relative;
+    opacity:var(--op,.46);
+    box-shadow:inset 0 0 0 1px rgba(236,227,210,.20), 0 10px 30px rgba(0,0,0,.32);
   }
-  .bande--pres .fenetre{width:240px; height:180px; border-radius:34px; opacity:.58}
   .fenetre img{width:100%; height:100%; object-fit:cover; display:block}
   /* reflet de vitre */
   .fenetre::after{
@@ -128,10 +131,9 @@
 
   :focus-visible{outline:2px solid var(--cuivre); outline-offset:3px; border-radius:6px}
 
+  /* Les dimensions des fenêtres sont pilotées en JS (--w/--h) selon la place. */
   @media(max-width:640px){
-    .fenetre{width:124px; height:96px; border-radius:20px}
-    .bande--pres .fenetre{width:168px; height:126px; border-radius:26px}
-    .bande--loin{top:5%} .bande--pres{top:66%}
+    .fenetre{border-radius:20px}
   }
   @media(prefers-reduced-motion:reduce){
     .mascotte{animation:none}
@@ -142,10 +144,7 @@
 </head>
 <body>
 
-<div class="fenetres" aria-hidden="true">
-  <div class="bande bande--loin"><div class="defile" id="loin"></div></div>
-  <div class="bande bande--pres"><div class="defile" id="pres"></div></div>
-</div>
+<div class="fenetres" id="fenetres" aria-hidden="true"></div>
 
 <main>
   <svg class="mascotte" viewBox="0 0 512 512" aria-label="La mascotte du Bus : un petit bus aux yeux fermés">
@@ -186,25 +185,65 @@
     'neige-sommets','nuages-lune','phare','plage-soir','pluie-champ','riviere-douce',
     'route-plaine','sommet-clair','vagues-soleil','village-nuit','voie-lactee'];
 
-  // Le contenu est dupliqué : la boucle -50% se referme alors sans couture.
-  function remplir(el, noms){
-    var html = noms.map(function(n){
-      return '<div class="fenetre"><img src="paysages/' + n + '.webp" alt="" decoding="async"></div>';
-    }).join('');
-    el.innerHTML = html + html;
+  var hote = document.getElementById('fenetres');
+  var doux = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var bandes = [];
+
+  // Combien de lignes tiennent dans la hauteur disponible ? 6 au maximum.
+  function nbLignes(){
+    var petit = window.innerWidth < 640;
+    var pas = petit ? 118 : 156;           // hauteur d'une fenêtre + interligne
+    return Math.max(2, Math.min(6, Math.round(window.innerHeight / pas)));
   }
 
-  var moitie = Math.ceil(PAYSAGES.length / 2);
-  remplir(document.getElementById('loin'), PAYSAGES.slice(0, moitie));
-  remplir(document.getElementById('pres'), PAYSAGES.slice(moitie));
+  function construire(){
+    var petit = window.innerWidth < 640;
+    var lignes = nbLignes();
+    var largeur = petit ? 138 : 190;
+    var hauteur = petit ? 96 : 132;
+    var gap = petit ? 16 : 22;
+    // Assez de fenêtres pour couvrir la largeur, puis on duplique pour boucler.
+    var parLigne = Math.ceil(window.innerWidth * 1.3 / (largeur + gap)) + 1;
 
-  // Parallaxe à la souris : chaque bande bouge d'une amplitude différente,
-  // ce qui creuse la profondeur. Désactivée si l'utilisateur limite les animations.
-  var doux = window.matchMedia('(prefers-reduced-motion: reduce)');
-  var bandes = [
-    { el: document.querySelector('.bande--loin'), ax: -20, ay: -12 },
-    { el: document.querySelector('.bande--pres'), ax: -46, ay: -24 }
-  ];
+    hote.style.setProperty('--gap', gap + 'px');
+    hote.innerHTML = '';
+    bandes = [];
+
+    for (var i = 0; i < lignes; i++){
+      var bande = document.createElement('div');
+      bande.className = 'bande';
+      bande.dataset.sens = i % 2;                       // une ligne sur deux à contresens
+
+      var defile = document.createElement('div');
+      defile.className = 'defile';
+      defile.style.setProperty('--dur', (68 + i * 13) + 's');
+
+      var html = '';
+      for (var j = 0; j < parLigne; j++){
+        // Décalage par ligne : deux lignes ne montrent jamais la même suite.
+        var nom = PAYSAGES[(i * 7 + j) % PAYSAGES.length];
+        html += '<div class="fenetre" style="--w:' + largeur + 'px;--h:' + hauteur +
+                'px;--op:' + (0.38 + (i % 3) * 0.07).toFixed(2) + '">' +
+                '<img src="paysages/' + nom + '.webp" alt="" decoding="async"></div>';
+      }
+      defile.innerHTML = html + html;                   // duplication : boucle sans couture
+
+      bande.appendChild(defile);
+      hote.appendChild(bande);
+      // Amplitude de parallaxe croissante : creuse la profondeur entre les lignes.
+      bandes.push({ el: bande, ax: -(14 + i * 7), ay: -(8 + i * 4) });
+    }
+  }
+
+  construire();
+
+  var minuteur;
+  window.addEventListener('resize', function(){
+    clearTimeout(minuteur);
+    minuteur = setTimeout(construire, 250);
+  });
+
+  // Parallaxe à la souris : chaque ligne bouge d'une amplitude propre.
   window.addEventListener('pointermove', function(e){
     if (doux.matches || e.pointerType === 'touch') return;
     var x = e.clientX / window.innerWidth - .5;
